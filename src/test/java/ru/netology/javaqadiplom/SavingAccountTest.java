@@ -260,7 +260,7 @@ public class SavingAccountTest {
     //Тест на неуспешное снятие средств, когда остаток на счете становится ниже минимального значения
     @Test
     //Тест на неуспешное снятие средств, когда остаток на счете становится ниже минимального значения
-    //баг № 10 - Значение баланса при покупке меньше минимального возможного баланса minBalance
+    //баг № 9 - Значение баланса при покупке меньше минимального возможного баланса minBalance
     public void testPayBelowMinBalance() {
         SavingAccount account = new SavingAccount(1000, 500, 2000, 10);
         assertFalse(account.pay(600));
@@ -269,7 +269,7 @@ public class SavingAccountTest {
 
     @Test
     //Тест на неуспешное снятие средств, когда запрашиваемая сумма больше остатка на счете
-    //баг № 11 - Значение величины снятия средств превышает остатка на счете initialBalance
+    //баг № 10 - Значение величины снятия средств превышает величину остатка на счете initialBalance
     public void testPayOverdraft() {
         SavingAccount account = new SavingAccount(1000, 500, 2000, 20);
         assertFalse(account.pay(2000));
