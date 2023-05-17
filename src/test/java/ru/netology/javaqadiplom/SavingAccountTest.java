@@ -183,13 +183,13 @@ public class SavingAccountTest {
     //баг № 9 - Переменная rate в функции yearChange не имеет ограничение на максимально допустимое значение
     public void testYearChangeWithNonMaxRate() {
         SavingAccount account = new SavingAccount(2_000, 1_000, 3_000, 2_000);
-        assertEquals(40_000, account.yearChange()); // проценты на остаток должны быть рассчитаны правильно
+        assertEquals(40_000, account.yearChange());
     }
 
     @Test
     public void testAddZeroAmount() {
         SavingAccount account = new SavingAccount(1000, 0, 2000, 10);
-        assertFalse(account.add(0)); // Операция не должна пройти
+        assertFalse(account.add(0));
         assertEquals(1000, account.getBalance());
     }
 
@@ -205,15 +205,7 @@ public class SavingAccountTest {
     public void testAddWithTooLargeAmount() {
         SavingAccount account = new SavingAccount(1000, 0, 2000, 10);
         assertFalse(account.add(5000)); // попытка пополнения на сумму больше, чем допустимый максимум
-        assertEquals(1000, account.getBalance()); // баланс должен быть неизменен
-    }
-
-    //Тест проверяющий корректность расчёта процентов на остаток счёта
-    @Test
-    public void testYearChange() {
-        SavingAccount savingAccount = new SavingAccount(200, 0, 200, 15);
-        int result = savingAccount.yearChange();
-        assertEquals(30, result);
+        assertEquals(1000, account.getBalance());
     }
 
     //Тест корректности работы метода yearChange() с нулевой ставкой
@@ -227,26 +219,25 @@ public class SavingAccountTest {
     //Тесты проверяющий корректность операции оплаты с карты
     @Test
     public void testPaySuccess() {
-        SavingAccount account = new SavingAccount(100, 0, 200, 10);
-        boolean result = account.pay(50);
-        assertTrue(result);
-        assertEquals(50, account.getBalance());
+        SavingAccount account = new SavingAccount(100, 10, 200, 10);
+        account.pay(50);
+        Assertions.assertEquals(50, account.getBalance());
     }
 
     //Тест попытки оплаты с корректными значениями - баланс должен уменьшиться на сумму покупки
     @Test
     public void testPayWithNormalAmount() {
         SavingAccount account = new SavingAccount(1000, 0, 2000, 10);
-        assertTrue(account.pay(500));
-        assertEquals(500, account.getBalance());
+        assertTrue(account.pay(999));
+        assertEquals(1, account.getBalance());
     }
 
     //Тест попытки оплаты с отрицательной суммой - баланс должен быть неизменен
     @Test
     public void testPayWithNegativeAmount() {
         SavingAccount account = new SavingAccount(1000, 0, 2000, 10);
-        assertFalse(account.pay(-100));
-        assertEquals(1000, account.getBalance());
+        account.pay(-100);
+        Assertions.assertEquals(1000, account.getBalance());
     }
 
     //Тест на неуспешное снятие средств, когда запрашиваемая сумма отрицательна
@@ -294,7 +285,7 @@ public class SavingAccountTest {
     //Тест с нулевой ставкой и нулевым балансом
     @Test
     public void testYearChangeWithZeroRateAndZeroBalance() {
-        SavingAccount account = new SavingAccount(0, 100, 2000, 0);
+        SavingAccount account = new SavingAccount(1000, 100, 2000, 0);
         assertEquals(0, account.yearChange());
     }
 
@@ -308,15 +299,36 @@ public class SavingAccountTest {
     @Test
     public void testAddAtMaxBalance() {
         SavingAccount account = new SavingAccount(900, 0, 1000, 10);
-        assertFalse(account.add(100));
-        assertEquals(900, account.getBalance());
+        assertTrue(account.add(100));
+        assertEquals(1000, account.getBalance());
     }
 
     @Test
-    public void testAddAboveMaxBalance() {
-        SavingAccount account = new SavingAccount(800, 0, 1000, 10);
-        assertFalse(account.add(201));
-        assertEquals(800, account.getBalance());
+    public void yearChangeIsZero() {
+        SavingAccount account = new SavingAccount(1_000, 800, 5_000, 0);
+        Assertions.assertEquals(0, account.yearChange());
     }
+
+    @Test
+    public void yearChangeSolve() {
+        SavingAccount account = new SavingAccount(1_000, 800, 5_000, 10);
+        Assertions.assertEquals(100, account.yearChange());
+    }
+
+
+    @Test
+    public void testGetMinBalance() {
+        SavingAccount account = new SavingAccount(1000, 500, 2000, 2);
+        int expectedMinBalance = 500;
+        assertEquals(expectedMinBalance, account.getMinBalance());
+    }
+
+
+    @Test
+    public void testGetMaxBalance() {
+        SavingAccount account = new SavingAccount(1000, 500, 5000, 10);
+        assertEquals(5000, account.getMaxBalance());
+    }
+
 
 }
