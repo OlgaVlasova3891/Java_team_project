@@ -330,5 +330,4 @@ public class SavingAccountTest {
         assertEquals(5000, account.getMaxBalance());
     }
 
-
 }
