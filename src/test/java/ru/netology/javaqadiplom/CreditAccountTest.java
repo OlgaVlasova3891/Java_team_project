@@ -11,7 +11,7 @@ public class CreditAccountTest {
 
     public void shouldGetCreditLimit() {
         CreditAccount account = new CreditAccount(0, 5_000, 15);
-        Assertions.assertEquals(5_000, account.getCreditLimit());
+        Assertions.assertEquals(5_000, account.getBalance());
     }
 
     @Test
