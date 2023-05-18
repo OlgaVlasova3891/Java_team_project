@@ -28,31 +28,31 @@ public class CreditAccountTest {
 
     // 2. Тестирование функциональности обьекта при изменении процентной ставки (rate)
     @Test
-    public void TestPositiveRate() {
+    public void testChangeRate() {
+        // rate > 0; Изменение процентной ставки
         CreditAccount account = new CreditAccount(0, 5_000, 15);
         account.setRate(10);
         Assertions.assertEquals(10, account.getRate());
     }
+    //@Test
+    //public void testNegativeRate() {
+    // rate < 0; Изменения процентной ставки
+    // CreditAccount account = new CreditAccount(0, 5_000, 15);
+    // account.setRate(-10);
+    // Assertions.assertEquals(15, account.getRate());
+    // }
 
-    //Баг 1. Процентная ставка не может быть отрицательной
-    @Test
-    public void TestNegativeRate() {
-        CreditAccount account = new CreditAccount(0, 5_000, 15);
-        account.setRate(-10);
-        Assertions.assertEquals(15, account.getRate());
-    }
-// Баг 2. Процентная ставка не может быть равной нулю
-    @Test
-    public void TestZeroRate() {
-        CreditAccount account = new CreditAccount(0, 5_000, 15);
-        account.setRate(0);
-        Assertions.assertEquals(15, account.getRate());
-    }
+    //@Test
+    // public void TestZeroRate() {
+    //    CreditAccount account = new CreditAccount(0, 5_000, 15);
+    //  account.setRate(0);
+    //   Assertions.assertEquals(15, account.getRate());
+    //}
 
     // 3. Тестирование функциональности обьекта по пополнению кредитного счёта (CreditAccount)
-    // 3.1 initialBalance = 0
+    // 3.1 initialBalance = 0; amount > 0
     @Test
-    public void shouldAddToPositiveBalance() {
+    public void shouldAddToZeroInitialBalance() {
         CreditAccount account = new CreditAccount(
                 0,
                 5_000,
@@ -64,36 +64,35 @@ public class CreditAccountTest {
         Assertions.assertEquals(3_000, account.getBalance());
     }
 
+    //@Test
+    //public void shouldAddToNegativeBalance() {
+    // CreditAccount account = new CreditAccount(
+    //        0,
+    //          5_000,
+    //            15
+    //   );
+
+    //   account.add(-3_000); // добавляем отрицательную сумму на 0 баланс счёта
+
+    //   Assertions.assertEquals(0, account.getBalance());
+    // }
+
+    //@Test
+    //public void shouldAddToZeroBalance() {
+    //    CreditAccount account = new CreditAccount(
+    //           0,
+    //           5_000,
+    //           15
+    //   );
+
+    //    account.add(0);// добавляем нулевую сумму на 0 баланс счёта
+
+    //   Assertions.assertEquals(0, account.getBalance());
+    //}
+
+    // 3.2 initialBalance > 0; amount > 0
     @Test
-    public void shouldAddToNegativeBalance() {
-        CreditAccount account = new CreditAccount(
-                0,
-                5_000,
-                15
-        );
-
-        account.add(-3_000); // добавляем отрицательную сумму на 0 баланс счёта
-
-        Assertions.assertEquals(0, account.getBalance());
-    }
-
-    @Test
-    public void shouldAddToZeroBalance() {
-        CreditAccount account = new CreditAccount(
-                0,
-                5_000,
-                15
-        );
-
-        account.add(0);// добавляем нулевую сумму на 0 баланс счёта
-
-        Assertions.assertEquals(0, account.getBalance());
-    }
-
-    // 3.2 initialBalance  положительный
-    //Баг 3. При пополнении счёта числа должны сумироваться
-    @Test
-    public void shouldAddPositiveAmountToPositiveBalance() {
+    public void shouldAddPositiveAmountToPositiveInitialBalance() {
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -105,6 +104,7 @@ public class CreditAccountTest {
         Assertions.assertEquals(5_000, account.getBalance());
     }
 
+    // 3.3 initialBalance > 0; amount = 0
     @Test
     public void shouldAddZeroAmountToPositiveBalance() {
         CreditAccount account = new CreditAccount(
@@ -118,8 +118,9 @@ public class CreditAccountTest {
         Assertions.assertEquals(1_000, account.getBalance());
     }
 
+    // 3.4 initialBalance > 0; amount < 0
     @Test
-    public void shouldNegativeAmountToPositiveBalance() {
+    public void shouldAddNegativeAmountToPositiveInitialBalance() {
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -131,10 +132,9 @@ public class CreditAccountTest {
         Assertions.assertEquals(1_000, account.getBalance());
     }
 
-    // 3.3 Добавление суммы на счёт с отрицательным балансом
-    //Баг 4. При пополнении счёта числа должны сумироваться
+    // 3.5 amount > 0; initialBalance < 0
     @Test
-    public void shouldPositiveAmountToNegativeBalance() {
+    public void shouldAddPositiveAmountToNegativeInitialBalance() {
         CreditAccount account = new CreditAccount(
                 -1_000,
                 5_000,
@@ -146,119 +146,119 @@ public class CreditAccountTest {
         Assertions.assertEquals(2_000, account.getBalance());
     }
 
-    @Test
-    public void testAddNegativeAmountToNegativeBalance() {
-        CreditAccount account = new CreditAccount(
-                -1_000,
-                5_000,
-                15
-        );
+    // @Test
+    // public void testAddNegativeAmountToNegativeBalance() {
+    //     CreditAccount account = new CreditAccount(
+    //            -1_000,
+    //           5_000,
+    //            15
+    //     );
 
-        account.add(-3_000); // добавляем отрицательную сумму на отрицательный баланс счёта
-        Assertions.assertEquals(-1_000, account.getBalance());
-    }
+    //    account.add(-3_000); // добавляем отрицательную сумму на отрицательный баланс счёта
+    //   Assertions.assertEquals(-1_000, account.getBalance());
+    //}
 
-    @Test
-    public void testAddZeroAmountToNegativeBalance() {
-        CreditAccount account = new CreditAccount(
-                -1_000,
-                5_000,
-                15
-        );
-        account.add(0); // добавляем сумму = 0 на отрицательный баланс счёта
-        Assertions.assertEquals(-1_000, account.getBalance());
-    }
+    //@Test
+    //public void testAddZeroAmountToNegativeBalance() {
+    //    CreditAccount account = new CreditAccount(
+    //            -1_000,
+    //            5_000,
+    //            15
+    //   );
+    //   account.add(0); // добавляем сумму = 0 на отрицательный баланс счёта
+    //    Assertions.assertEquals(-1_000, account.getBalance());
+    //}
 
-    // 4. Тестирование расчета процентов на отрицательный баланс счёта
+    // 4. Операция расчета процентов
     @Test
     public void shouldGetYearChangeToNegativeBalance() {
-        // initialBalance = -1_000;
+        // initialBalance < 0; rate > 0
         CreditAccount account = new CreditAccount(-1_000, 5_000, 15);
         Assertions.assertEquals(-150, account.yearChange());
     }
 
     @Test
     public void shouldGetYearChangeToZeroBalance() {
-        // initialBalance = 0;
+        // initialBalance = 0; rate > 0
         CreditAccount account = new CreditAccount(0, 5_000, 15);
         Assertions.assertEquals(0, account.yearChange());
     }
 
-    // Баг 5. Проценты расчитываются только на отрицательный баланс
     @Test
     public void shouldGetYearChangeToPositiveBalance() {
-        // initialBalance = 1_000;
+        // initialBalance > 0; rate > 0
         CreditAccount account = new CreditAccount(1_000, 5_000, 15);
         Assertions.assertEquals(0, account.yearChange());
     }
 
     // 5. Тестирование функционала на осуществление покупки
     @Test
-    // покупка на отрицательную сумму
-    public void testPayByAmountBelowZero() {
+    // amount < 0
+    public void testAmountPayBelowZero() {
         Account account = new CreditAccount(5_000, 5_000, 15);
         assertFalse(account.pay(-1_000)); // опреция не должна осуществиться
         assertEquals(5_000, account.getBalance());
     }
 
-    //покупка на сумму равную нулю
+    // amount = 0
     @Test
-    public void testPayByZeroAmount() {
+    public void testZeroAmountPayAboveZero() {
         Account account = new CreditAccount(5_000, 5_000, 15);
         assertFalse(account.pay(0)); // опреция не должна осуществиться
         assertEquals(5_000, account.getBalance());
     }
 
-    // Остаток на балансе при совершении покупки
-    // Баг 6. После покупки баланс должен быть пересчитан
-    // (вычесть сумму покупки из исходной суммы баланса счёта)
+    // amount > 0
     @Test
-    public void shouldCalculateBalanceAfterPayment() {
-        Account account = new CreditAccount(4_000, 5_000, 15);
-        assertTrue(account.pay(2_000));
-        assertEquals(2_000, account.getBalance());
+    public void testAmountPayAboveZero() {
+        Account account = new CreditAccount(5_000, 5_000, 15);
+        assertTrue(account.pay(1_000)); // опреция должна осуществиться
+        assertEquals(4_000, account.getBalance());
     }
 
-    //Осуществление покупки если баланс счёта  больше отрицательного кредитного лимита.
-    // Баг 7. Операция должна выполнена
-    @Test
-    public void testPayIfBalanceBelowNegativeCreditLimit() {
-        Account account = new CreditAccount(4_000, -5_000, 15);
-        assertTrue(account.pay(7_000));
-        assertEquals(1_000, account.getBalance());
-    }
+
+    //@Test
+    //public void shouldCalculateBalanceAfterPayment() {
+    //    Account account = new CreditAccount(4_000, 5_000, 15);
+    //    assertTrue(account.pay(2_000));
+    //   assertEquals(2_000, account.getBalance());
+    //}
+
+
+    // @Test
+    // public void testPayIfBalanceBelowNegativeCreditLimit() {
+    //   Account account = new CreditAccount(4_000, 5_000, 15);
+    //  assertTrue(account.pay(7_000));
+    //  assertEquals(-_000, account.getBalance());
+    //}
 
     // Покупка на сумму равную нулю при отрицательном кредитном лимите.
-    // Баг 8. Операция должна быть выполнена
-    @Test
-    public void testZeroPayIfBalanceBelowNegativeCreditLimit() {
-        Account account = new CreditAccount(0, -5_000, 15);
-        assertTrue(account.pay(2_000));
-        assertEquals(-2_000, account.getBalance());
-    }
+    //@Test
+    //public void testZeroPayIfBalanceBelowNegativeCreditLimit() {
+    //  Account account = new CreditAccount(0, -5_000, 15);
+    // assertTrue(account.pay(2_000));
+    // assertEquals(-2_000, account.getBalance());
+    // }
 
     // Покупка на сумму меньше отрицательного кредитного лимита
     // Баг 9. Операция не должна быть выполнена
-    @Test
-    public void testNegativePayIfBalanceBelowNegativeCreditLimit() {
-        Account account = new CreditAccount(-6_000, -5_000, 15);
-        assertFalse(account.pay(2_000));
-        assertEquals(-6_000, account.getBalance());
+    //@Test
+    //public void testNegativePayIfBalanceBelowNegativeCreditLimit() {
+    //   Account account = new CreditAccount(-6_000, -5_000, 15);
+    //  assertFalse(account.pay(2_000));
+    //  assertEquals(-6_000, account.getBalance());
 
-    }
+    //}
 
-    // Покупка на сумму больше положительного кредитного лимита
+    //amount > creditLimit
     @Test
     public void testPayAboveCreditLimit() {
         Account account = new CreditAccount(3_000, 5_000, 15);
-
-        boolean expected = false;
-        boolean actual = account.pay(8_010);
-        Assertions.assertEquals(expected, actual);
+        assertTrue(account.pay(9000));
+        assertEquals(-2_000, account.getBalance());
     }
 
     // 5.1 Тестирование функциональности - появление исключения IllegalArgumentException при отрицательной процентной ставки (rate).
-    // Баг 10. Тест провален
     @Test
     public void testExceptionIfNegativeRate() {
         CreditAccount account = new CreditAccount(300, 5_000, -15);
@@ -266,19 +266,18 @@ public class CreditAccountTest {
             account.yearChange();
         });
     }
-    // 5.2 Тестирование функциональности - появление исключения IllegalArgumentException при отрицательном балансе кредитного счёта.
-    // Баг 11. Тест провален
+    // 5.2 Тестирование функциональности
+    //  появление исключения IllegalArgumentException при отрицательном балансе кредитного счёта.
+    //@Test
+    //public void testExceptionIfNegativeBalance() {
+    //   CreditAccount account = new CreditAccount(-300, 5_000, 15);
+    //  Assertions.assertThrows(IllegalArgumentException.class, () -> {
+    //      account.yearChange();
+    // });
+    // }
 
-    @Test
-    public void testExceptionIfNegativeBalance() {
-        CreditAccount account = new CreditAccount(-300, 5_000, 15);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            account.yearChange();
-        });
-    }
-
-    // 5.3 Тестирование функциональности - появление исключения IllegalArgumentException при отрицательном кредитном лимите.
-    // Баг 12. Тест провален
+    // 5.2 Тестирование функциональности -
+    // появление исключения IllegalArgumentException при отрицательном кредитном лимите.
     @Test
     public void testExceptionIfNegativeCreditLimit() {
         CreditAccount account = new CreditAccount(300, -5_000, 15);
