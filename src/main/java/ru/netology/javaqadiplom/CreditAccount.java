@@ -65,7 +65,7 @@ public class CreditAccount extends Account {
             return false;
         }
         if ((balance + creditLimit) >= 0) {
-            balance = balance - amount;
+            balance = balance + creditLimit - amount;
             return true;
         }
         if (balance > creditLimit) {
