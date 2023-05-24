@@ -25,27 +25,24 @@ public class CreditAccount extends Account {
             );
         }
         if (rate > 40) {
-<<<<<<< HEAD
-=======
             throw new IllegalArgumentException(
                     "Ставка кредитования не может быть, больше 40%, а у вас: " + rate
             );
         }
 
         if ((initialBalance + creditLimit) < 0) {
->>>>>>> 3680ca721c7582a442421fa9e708daf8dd295e45
             throw new IllegalArgumentException(
                     "Ставка кредитования не может быть, больше 40%, а у вас: " + rate
             );
         }
-<<<<<<< HEAD
+
         // if (initialBalance  < 0) {
         //   throw new IllegalArgumentException(
         //         "Начальный баланс не может быть отрицательным, а у вас: " + initialBalance
         //);
         // }
-=======
->>>>>>> 3680ca721c7582a442421fa9e708daf8dd295e45
+
+
         if (creditLimit < 0) {
             throw new IllegalArgumentException(
                     "Кредитный лимит не может быть отрицательным, а у вас: " + creditLimit

@@ -110,7 +110,7 @@ public class CreditAccountTest {
         CreditAccount account = new CreditAccount(-1_000, 5_000, 15);
         Assertions.assertEquals(-150, account.yearChange());
     }
-
+    // проверяем функциональность rate
     @Test
     public void testYearChangeWithZeroBalance() {
         // initialBalance = 0; rate > 0
@@ -125,39 +125,7 @@ public class CreditAccountTest {
         Assertions.assertEquals(0, account.yearChange());
     }
 
-    // @Test
-    // public void testAmountPayBelowZero() {
-    // amount < 0
-    //    Account account = new CreditAccount(5_000, 5_000, 15);
-    //    assertFalse(account.pay(-1_000));
-    //    assertEquals(5_000, account.getBalance());
-    //}
 
-    //  @Test
-    // public void testZeroAmountPayAboveZero() {
-    // amount = 0
-    //     Account account = new CreditAccount(5_000, 5_000, 15);
-    //    assertFalse(account.pay(0));
-    //    assertEquals(5_000, account.getBalance());
-    // }
-
-
-    //  @Test
-    // public void shouldPayPositiveAmount() {
-    // balance > 0, amount > 0
-    //    Account account = new CreditAccount(1_000, 5_000, 15);
-    //   assertTrue(account.pay(500)); // опреция должна осуществиться
-    //   assertEquals(500, account.getBalance());
-    // }
-
-    // @Test
-    // public void testPayIfAmountAboveCreditLimit() {
-    // balance > 0,amount > (balance + creditLimit)
-    //     Account account = new CreditAccount(1_000, 5_000, 15);
-    //    assertFalse(account.pay(6_001));
-    //     assertEquals(1_000, account.getBalance());
-    //  }
-    // Не мои
     @Test
     // покупка на отрицательную сумму
     public void testPayByAmountBelowZero() {
@@ -174,23 +142,6 @@ public class CreditAccountTest {
         assertEquals(5_000, account.getBalance());
     }
 
-    // @Test
-    // public void PayByZeroBelow() {
-    //    CreditAccount account = new CreditAccount(5_000, 5_000, 15);
-    //   Boolean expected = false;
-    //   Boolean actual = account.pay(-100);
-
-    //   Assertions.assertEquals(expected, actual);
-    //}
-
-    // @Test
-    // public void PayByZeroEqual() {
-    //   CreditAccount account = new CreditAccount(5_000, 5_000, 15);
-    //  Boolean expected = false;
-    //  Boolean actual = account.pay(0);
-
-    //  Assertions.assertEquals(expected, actual);
-    // }
 
     @Test
     public void PayByZeroAbove() {
@@ -333,7 +284,6 @@ public class CreditAccountTest {
         assertTrue(account.pay(4_500));
         assertEquals(-500, account.getBalance());
     }
-    // Не мои
 
     @Test
     public void testExceptionIfNegativeRate() {
@@ -353,20 +303,33 @@ public class CreditAccountTest {
         });
     }
 
-    // @Test
-    // public void testExceptionIfNegativeBalance() {
-    //    // initialBalance < 0
-    //    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-    //        new CreditAccount(-100, 5_000, 15);
-    //   });
-    // }
+    @Test
+    public void testExceptionIfNegativeBalance() {
+        // initialBalance < 0
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new CreditAccount(-100, -5_000, 15);
+        });
+    }
 
     @Test
     public void testExceptionICreditLimitIsNegative() {
         // creditLimit < 0
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new CreditAccount(2_000, -5_000, 15);
+            new CreditAccount(2_000, -7_000, 15);
         });
+    }
+
+    @Test
+    public void shouldGetCreditNegative() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new CreditAccount(10, -1, 10);
+        });
+    }
+
+    @Test
+    public void shouldGetCreditZero() {
+        CreditAccount account = new CreditAccount(0, 0, 10);
+        Assertions.assertEquals(0, account.getCreditLimit());
     }
 }
 
