@@ -1,14 +1,9 @@
 package ru.netology.javaqadiplom;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-public class CreditAccountTest {
+import org.junit.jupiter.api
 
     @Test
-
     public void shouldGetCreditLimit() {
         CreditAccount account = new CreditAccount(0, 10_000, 15);
         Assertions.assertEquals(10_000, account.getCreditLimit());
@@ -35,9 +30,8 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldAddToZeroInitialBalance() {
-        // initialBalance = 0, amount > 0
-        CreditAccount account = new CreditAccount(
+    public void shouldAddToPositiveBalance() {
+       CreditAccount account = new CreditAccount(
                 0,
                 5_000,
                 15
@@ -48,7 +42,7 @@ public class CreditAccountTest {
         Assertions.assertEquals(3_000, account.getBalance());
     }
 
-    @Test
+   @Test
     public void shouldAddPositiveAmountToNegativeBalance() {
         // initialBalance < 0, amount > 0
         CreditAccount account = new CreditAccount(
@@ -332,6 +326,4 @@ public class CreditAccountTest {
         Assertions.assertEquals(0, account.getCreditLimit());
     }
 }
-
-
 
