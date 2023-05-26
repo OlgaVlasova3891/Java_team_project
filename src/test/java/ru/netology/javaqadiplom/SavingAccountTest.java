@@ -5,9 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 public class SavingAccountTest {
 
+
     @Test
+    // Баг № 1: не выводит итоговый баланс при пополнении счета в диапазоне допустимых значений
     public void shouldAddLessThanMaxBalance() {
         SavingAccount account = new SavingAccount(
                 2_000,
@@ -37,6 +40,7 @@ public class SavingAccountTest {
         assertEquals(2000, savingAccount.getBalance());
     }
 
+
     //Тест проверки создания объекта SavingAccount с корректными параметрами
     @Test
     public void testSavingAccountCreationWithValidParams() {
@@ -64,6 +68,7 @@ public class SavingAccountTest {
             SavingAccount account = new SavingAccount(2_000, -1_000, 4_000, 10);
         });
     }
+
 
     @Test
     //Тест со значением minBalance большим, чем значение maxBalance
@@ -210,6 +215,7 @@ public class SavingAccountTest {
         assertEquals(0, account.yearChange());
     }
 
+
     //Тесты проверяющий корректность операции оплаты с карты
     @Test
     public void testPaySuccess() {
@@ -317,6 +323,7 @@ public class SavingAccountTest {
         assertEquals(expectedMinBalance, account.getMinBalance());
     }
 
+
     @Test
     public void testGetMaxBalance() {
         SavingAccount account = new SavingAccount(1000, 500, 5000, 10);
@@ -324,4 +331,3 @@ public class SavingAccountTest {
     }
 
 }
-
