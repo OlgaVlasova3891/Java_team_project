@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SavingAccountTest {
 
     @Test
-    // Баг № 1: не выводит итоговый баланс при пополнении счета в диапазоне допустимых значений
     public void shouldAddLessThanMaxBalance() {
         SavingAccount account = new SavingAccount(
                 2_000,
@@ -323,4 +322,6 @@ public class SavingAccountTest {
         SavingAccount account = new SavingAccount(1000, 500, 5000, 10);
         assertEquals(5000, account.getMaxBalance());
     }
+
 }
+
