@@ -21,7 +21,7 @@ public class CreditAccount extends Account {
     public CreditAccount(int initialBalance, int creditLimit, int rate) {
         if (rate < 0) {
             throw new IllegalArgumentException(
-                    "Накопительная ставка не может быть отрицательной, а у вас: " + rate
+                    "Ставка кредитования не может быть отрицательной, а у вас: " + rate
             );
         }
         if (rate > 40) {
@@ -32,17 +32,9 @@ public class CreditAccount extends Account {
 
         if ((initialBalance + creditLimit) < 0) {
             throw new IllegalArgumentException(
-                    "Ставка кредитования не может быть, больше 40%, а у вас: " + rate
+                    "Начальный баланс не может быть отрицательным, а у вас: " + initialBalance
             );
         }
-
-        // if (initialBalance  < 0) {
-        //   throw new IllegalArgumentException(
-        //         "Начальный баланс не может быть отрицательным, а у вас: " + initialBalance
-        //);
-        // }
-
-
         if (creditLimit < 0) {
             throw new IllegalArgumentException(
                     "Кредитный лимит не может быть отрицательным, а у вас: " + creditLimit
@@ -57,7 +49,7 @@ public class CreditAccount extends Account {
      * Операция оплаты с карты на указанную сумму.
      * В результате успешного вызова этого метода, баланс должен уменьшиться
      * на сумму покупки. Если же операция может привести к некорректному
-     * состоянию счёта (например, баланс может уйти меньше чем лимит), то операция должна
+     * состоянию счёта (например, баланс может уйти в минус), то операция должна
      * завершиться вернув false и ничего не поменяв на счёте.
      *
      * @param amount - сумма покупки
@@ -74,17 +66,6 @@ public class CreditAccount extends Account {
         }
         return false;
     }
-    // public boolean pay(int amount) {
-    //   if (amount <= 0) {
-    //     return false;
-    // }
-    // if (amount < balance + creditLimit) {
-    //    balance = balance - amount;
-    //   return true;
-    //} else {
-    //  return false;
-    // }
-    // }
 
     /**
      * Операция пополнения карты на указанную сумму.
@@ -103,7 +84,7 @@ public class CreditAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        balance = balance + amount;
+        balance += amount;
         return true;
     }
 
@@ -120,13 +101,12 @@ public class CreditAccount extends Account {
     public int yearChange() {
         if (balance < 0) {
             return balance / 100 * rate;
-        } else {
-            return 0;
         }
+        return 0;
     }
 
-
     public int getCreditLimit() {
+
         return creditLimit;
     }
 
