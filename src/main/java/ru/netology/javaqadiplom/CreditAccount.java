@@ -56,6 +56,7 @@ public class CreditAccount extends Account {
      * @param amount - сумма покупки
      * @return true если операция прошла успешно, false иначе.
      */
+  
     @Override
     public boolean pay(int amount) {
         if (amount <= 0) {
@@ -67,17 +68,6 @@ public class CreditAccount extends Account {
         }
         return false;
     }
-    // public boolean pay(int amount) {
-    //   if (amount <= 0) {
-    //     return false;
-    // }
-    // if (amount < balance + creditLimit) {
-    //    balance = balance - amount;
-    //   return true;
-    //} else {
-    //  return false;
-    // }
-    // }
 
     /**
      * Операция пополнения карты на указанную сумму.
@@ -109,6 +99,7 @@ public class CreditAccount extends Account {
      *
      * @return
      */
+  
     @Override
     public int yearChange() {
         if (balance < 0) {
@@ -123,3 +114,4 @@ public class CreditAccount extends Account {
     }
 
 }
+
